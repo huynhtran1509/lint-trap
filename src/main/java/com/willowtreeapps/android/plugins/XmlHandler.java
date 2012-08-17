@@ -1,11 +1,10 @@
-package org.sonatype.mavenbook.plugins;
+package com.willowtreeapps.android.plugins;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User: charlie Date: 8/15/12 Time: 2:49 PM

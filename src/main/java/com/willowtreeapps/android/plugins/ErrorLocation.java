@@ -1,4 +1,4 @@
-package org.sonatype.mavenbook.plugins;
+package com.willowtreeapps.android.plugins;
 
 /**
  * User: charlie Date: 8/15/12 Time: 2:30 PM

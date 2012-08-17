@@ -1,4 +1,4 @@
-package org.sonatype.mavenbook.plugins;
+package com.willowtreeapps.android.plugins;
 
 import org.apache.maven.plugin.logging.Log;
 
