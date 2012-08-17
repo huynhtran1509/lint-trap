@@ -94,8 +94,8 @@ Defines the minimum error level to log. Possible values are Error and Warning.
     <exclusions>
         <exclusion>target/unpack/apklibs/com.</exclusion>
     </exclusions>
-    <errorLevel>Error</errorLevel>
-    <logLevel>Warning</logLevel>
+    <minErrorLevel>Error</minErrorLevel>
+    <minLogLevel>Warning</minLogLevel>
   </configuration>
 </plugin>
 </pre>
