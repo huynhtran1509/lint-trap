@@ -76,7 +76,7 @@ Defines the minimum error level to log. Possible values are Error and Warning.
 <pre>
 <plugin>
   <groupId>com.willowtreeapps.android</groupId>
-  <artifactId>lint-trap-plugin</artifactId>
+  <artifactId>lint-trap-maven-plugin</artifactId>
   <version>1.0.0</version>
   <executions>
     <execution>
