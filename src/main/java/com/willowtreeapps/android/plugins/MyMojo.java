@@ -73,6 +73,8 @@ public class MyMojo
     private boolean broke = false;
     List<LintXmlError> errors;
 
+    public static final String ENV_ANDROID_HOME = "ANDROID_HOME";
+
     public void execute()
         throws MojoExecutionException
     {
@@ -92,7 +94,14 @@ public class MyMojo
                 throw new MojoExecutionException("Eclipse classpath not found");
             }
             ArrayList<String> params = new ArrayList<String>();
-            params.add("lint");
+
+            final String androidHome = System.getenv(ENV_ANDROID_HOME);
+            if ("".equals(androidHome) || androidHome == null) {
+                throw new MojoExecutionException("No Android SDK path could be found. You may configure it" +
+                        " by setting environment variable " + ENV_ANDROID_HOME);
+            }
+
+            params.add(androidHome + "/tools/lint");
             params.add("--xml");
             params.add("lintLog.xml");
             if(mChecks != null && mChecks.size() > 0)
