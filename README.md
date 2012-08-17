@@ -9,8 +9,8 @@ usage
 
 Add the following to your pom file to run lint during a build.
 	<plugin>
-            <groupId>org.sonatype.mavenbook.plugins</groupId>
-            <artifactId>lint-trap/artifactId>
+            <groupId>com.willowtreeapps.android</groupId>
+            <artifactId>lint-trap-maven-plugin</artifactId>
             <version>*version*</version>
             <executions>
                 <execution>
@@ -75,9 +75,9 @@ Defines the minimum error level to log. Possible values are Error and Warning.
 *Complete example*
 <pre>
 <plugin>
-  <groupId>org.sonatype.mavenbook.plugins</groupId>
-  <artifactId>lint-runner</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <groupId>com.willowtreeapps.android</groupId>
+  <artifactId>lint-trap-plugin</artifactId>
+  <version>1.0.0</version>
   <executions>
     <execution>
         <phase>process-test-resources</phase>
