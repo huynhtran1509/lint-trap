@@ -55,14 +55,14 @@ public class MyMojo
 
     /**
      * The minimum logging level.(Warning,Error) Defaults to Error
-     * @parameter alias="logLevel"
+     * @parameter alias="minLogLevel"
      *  default-value="Error"
      */
     private String mlogLevel;
 
     /**
      * The error level to fail builds on (Warning, Error, Never) Defaults to Error
-     * @parameter alias="errorLevel"
+     * @parameter alias="minErrorLevel"
      *  default-value="Error"
      */
     private String mErrorLevel;
