@@ -18,6 +18,7 @@ package com.willowtreeapps.android.plugins;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -120,7 +121,7 @@ public class MyMojo
             pb.directory(projectDirectory);
 
             getLog().info("Beginning lint Run");
-
+            getLog().info("Execution: " + StringUtils.join(params.iterator(), " "));
             Process p = pb.start();
 
             //wait for the process to exit
