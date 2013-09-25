@@ -20,9 +20,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.StringUtils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +35,10 @@ public class MyMojo
 {
     /**
      * Location of the build
-     * @parameter expression="${project.build.directory}"
+     * @parameter expression="${basedir}"
      * @required
      */
-    private File buildDirectory;
+    private File projectDirectory;
 
     /**
      * A set of checks to perform through lint. Defaults to all
@@ -68,7 +66,6 @@ public class MyMojo
      */
     private String mErrorLevel;
 
-    private File projectDirectory;
     private String errorFormat ="Lint error found!\n\tFile: %1$s\n\tLine: %2$s\n\tColumn: %3$s\n"
             + "\tSeverity: %4$s\n\tCheck: %5$s\n\tMessage: %6$s\n";
     private boolean broke = false;
@@ -79,8 +76,6 @@ public class MyMojo
     public void execute()
         throws MojoExecutionException
     {
-        projectDirectory = new File(buildDirectory.getParent());
-
         if(mExclusions == null || mExclusions.size() ==0)
         {
             mExclusions = new ArrayList<String>();
@@ -113,7 +108,7 @@ public class MyMojo
                 {
                     checks += mChecks.get(a)+",";
                 }
-                checks = checks.substring(0,checks.length());
+                checks = checks.substring(0,checks.length()-1);
                 params.add(checks);
             }
             params.add(".");
@@ -127,7 +122,6 @@ public class MyMojo
             //wait for the process to exit
             p.waitFor();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             LintXmlInterpreter interpreter = new LintXmlInterpreter();
             interpreter.setLog(getLog());
             if(mlogLevel.equalsIgnoreCase("warning"))
@@ -138,7 +132,7 @@ public class MyMojo
             {
                 interpreter.addExclusionFilter(mExclusions.get(a));
             }
-            errors = interpreter.parse(new File("lintlog.xml"));
+            errors = interpreter.parse(new File(projectDirectory.getAbsolutePath()+"/lintlog.xml"));
 
             LintXmlError error;
             for(int a=0; a< errors.size(); a++)
