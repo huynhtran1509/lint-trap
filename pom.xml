@@ -10,24 +10,6 @@
         <developerConnection>scm:git:git@github.com:willowtreeapps/lint-trap.git</developerConnection>
     </scm>
 
-    <properties>
-        <wta.repo.release>http://maven.willowtreeapps.com/repository/internal/</wta.repo.release>
-        <wta.repo.snapshot>http://maven.willowtreeapps.com/repository/snapshots/</wta.repo.snapshot>
-    </properties>
-
-    <distributionManagement>
-        <repository>
-            <id>wta.internal</id>
-            <name>WillowTree Internal Repository</name>
-            <url>${wta.repo.release}</url>
-        </repository>
-        <snapshotRepository>
-            <id>wta.snapshots</id>
-            <name>WillowTree Snapshot Repository</name>
-            <url>${wta.repo.snapshot}</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
