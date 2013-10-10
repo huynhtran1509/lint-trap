@@ -1,7 +1,7 @@
 lint-trap
 =========
 
-A maven plugin to run lint.
+A maven plugin to run lint for Android
 
 =========
 usage
