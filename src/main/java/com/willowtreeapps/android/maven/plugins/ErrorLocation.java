@@ -1,4 +1,4 @@
-package com.willowtreeapps.android.plugins;
+package com.willowtreeapps.android.maven.plugins;
 
 /**
  * User: charlie Date: 8/15/12 Time: 2:30 PM

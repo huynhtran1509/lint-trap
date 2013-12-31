@@ -1,4 +1,4 @@
-package com.willowtreeapps.android.plugins;
+package com.willowtreeapps.android.maven.plugins;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

@@ -1,4 +1,4 @@
-package com.willowtreeapps.android.plugins;
+package com.willowtreeapps.android.maven.plugins;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
