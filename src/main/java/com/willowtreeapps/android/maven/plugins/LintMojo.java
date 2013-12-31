@@ -30,7 +30,7 @@ import java.util.List;
  * @goal run-lint
  *
  */
-public class MyMojo
+public class LintMojo
     extends AbstractMojo
 {
     /**
@@ -45,6 +45,12 @@ public class MyMojo
      * @parameter alias="checks"
      */
     private ArrayList<String> mChecks;
+
+    /**
+     * A set of checks to ignore through lint.
+     * @parameter alias="ignores"
+     */
+    private ArrayList<String> mIgnores;
 
     /**
      * A set of directories to ignore. The script searches the start of the path so partial paths are fine
@@ -82,6 +88,7 @@ public class MyMojo
             mExclusions.add("target/unpack/apklibs/");
         }
 
+
         try
         {
             File f = new File(projectDirectory.getAbsolutePath()+"/.classpath");
@@ -97,9 +104,10 @@ public class MyMojo
                         " by setting environment variable " + ENV_ANDROID_HOME);
             }
 
-            params.add(androidHome + "/tools/lint");
+            params.add(androidHome + "/tools/lint.bat");
             params.add("--xml");
             params.add("lintLog.xml");
+
             if(mChecks != null && mChecks.size() > 0)
             {
                 params.add("--check");
@@ -110,6 +118,16 @@ public class MyMojo
                 }
                 checks = checks.substring(0,checks.length()-1);
                 params.add(checks);
+            }else if(mIgnores != null && mIgnores.size()>0)
+            {
+                params.add("--disable");
+                String disables = "";
+                for(int a=0; a<mIgnores.size(); a++)
+                {
+                    disables += mIgnores.get(a)+",";
+                }
+                disables = disables.substring(0,disables.length()-1);
+                params.add(disables);
             }
             params.add(".");
             ProcessBuilder pb = new ProcessBuilder(params);
