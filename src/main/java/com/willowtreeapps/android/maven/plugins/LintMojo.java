@@ -104,7 +104,11 @@ public class LintMojo
                         " by setting environment variable " + ENV_ANDROID_HOME);
             }
 
-            params.add(androidHome + "/tools/lint.bat");
+            String lintPath = androidHome+"/tools/lint";
+            if (System.getProperty("os.name").toLowerCase().indexOf("win")>=0){
+                lintPath+=".bat"; //.bat for windows
+            }
+            params.add(lintPath);
             params.add("--xml");
             params.add("lintLog.xml");
 
