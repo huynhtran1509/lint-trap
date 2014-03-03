@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Goal which touches a timestamp file.
+ * Goal which runs the android-lint tool against a maven project
  *
  * @goal run-lint
  *
@@ -34,26 +34,26 @@ public class LintMojo
     extends AbstractMojo
 {
     /**
-     * Location of the build
-     * @parameter expression="${basedir}"
+     * Location of the project directory 
+     * @parameter property="basedir"
      * @required
      */
     private File projectDirectory;
 
     /**
-     * A set of checks to perform through lint. Defaults to all
+     * A set of checks to perform through lint. Defaults to all. Note that any Ignores elements are ignored if this element is present
      * @parameter alias="checks"
      */
     private ArrayList<String> mChecks;
 
     /**
-     * A set of checks to ignore through lint.
+     * A set of checks to ignore through lint. Note that the presence of Checks elements will cause this to be ignored
      * @parameter alias="ignores"
      */
     private ArrayList<String> mIgnores;
 
     /**
-     * A set of directories to ignore. The script searches the start of the path so partial paths are fine
+     * A set of directories to ignore. The script searches the start of the path so partial paths are valid 
      * @parameter alias="exclusions"
      */
     private ArrayList<String> mExclusions;
