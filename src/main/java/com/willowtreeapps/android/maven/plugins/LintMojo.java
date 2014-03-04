@@ -41,6 +41,13 @@ public class LintMojo
     private File projectDirectory;
 
     /**
+     * Location of the project directory
+     * @parameter expression="${project.build.directory}/"
+     * @required
+     */
+    private File buildDirectory;
+
+    /**
      * A set of checks to perform through lint. Defaults to all. Note that any Ignores elements are ignored if this element is present
      * @parameter alias="checks"
      */
@@ -76,6 +83,7 @@ public class LintMojo
             + "\tSeverity: %4$s\n\tCheck: %5$s\n\tMessage: %6$s\n";
     private boolean broke = false;
     List<LintXmlError> errors;
+    private String lintLogFile = "lintlog.xml";
 
     public static final String ENV_ANDROID_HOME = "ANDROID_HOME";
 
@@ -91,6 +99,7 @@ public class LintMojo
 
         try
         {
+            //Check to make sure the classpath exists for lint to run
             File f = new File(projectDirectory.getAbsolutePath()+"/.classpath");
             if(!f.exists())
             {
@@ -98,20 +107,27 @@ public class LintMojo
             }
             ArrayList<String> params = new ArrayList<String>();
 
+            //Check to make sure we can find lint
             final String androidHome = System.getenv(ENV_ANDROID_HOME);
             if ("".equals(androidHome) || androidHome == null) {
                 throw new MojoExecutionException("No Android SDK path could be found. You may configure it" +
                         " by setting environment variable " + ENV_ANDROID_HOME);
             }
 
+            //Create out directory in the build directory
+            File lintFile = new File(buildDirectory + "/linttrap/"+ lintLogFile);
+            lintFile.getParentFile().mkdirs();
+
+            //Set up lint to output into the correct directory
             String lintPath = androidHome+"/tools/lint";
             if (System.getProperty("os.name").toLowerCase().indexOf("win")>=0){
                 lintPath+=".bat"; //.bat for windows
             }
             params.add(lintPath);
             params.add("--xml");
-            params.add("lintLog.xml");
+            params.add(lintFile.getAbsolutePath());
 
+            //Add the checks or exclusions
             if(mChecks != null && mChecks.size() > 0)
             {
                 params.add("--check");
@@ -144,6 +160,7 @@ public class LintMojo
             //wait for the process to exit
             p.waitFor();
 
+            //Parse the resulting XML
             LintXmlInterpreter interpreter = new LintXmlInterpreter();
             interpreter.setLog(getLog());
             if(mlogLevel.equalsIgnoreCase("warning"))
@@ -154,8 +171,9 @@ public class LintMojo
             {
                 interpreter.addExclusionFilter(mExclusions.get(a));
             }
-            errors = interpreter.parse(new File(projectDirectory.getAbsolutePath()+"/lintlog.xml"));
+            errors = interpreter.parse(lintFile);
 
+            //For each error check to see if there are any errors/warnings that should cause the build to fail
             LintXmlError error;
             for(int a=0; a< errors.size(); a++)
             {
@@ -190,6 +208,7 @@ public class LintMojo
         catch(Exception e)
         {
             getLog().error("Lint interpreter crashed!",e);
+            broke = true;
         }
 
         if(broke)
