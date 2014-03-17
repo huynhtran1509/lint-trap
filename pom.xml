@@ -14,11 +14,11 @@
         </license>
     </licenses>
 
-    <!--<parent>-->
-        <!--<groupId>org.sonatype.oss</groupId>-->
-        <!--<artifactId>oss-parent</artifactId>-->
-        <!--<version>7</version>-->
-    <!--</parent>-->
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
 
 
     <properties>
@@ -33,7 +33,8 @@
 
     <scm>
         <connection>scm:git:git@github.com:willowtreeapps/lint-trap.git</connection>
-        <developerConnection>scm:git:git@github.com:willowtreeapps/lint-trap.git</developerConnection>
+	<developerConnection>scm:git:git@github.com:willowtreeapps/lint-trap.git</developerConnection>
+	<url>https://github.com/willowtreeapps/lint-trap</url>
     </scm>
     <organization>
         <name>WillowTree Apps, Inc.</name>
